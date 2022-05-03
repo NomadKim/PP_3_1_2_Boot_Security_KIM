@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            height: 1000px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragment/logout :: logout"></div>
+<div>
+    <h2>List Of Users</h2>
+    <hr/>
+    <table border="2">
+        <thead>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Second Name</th>
+        <th>Email </th>
+        <th>Roles </th>
+        <th>Age </th>
+        </thead>
+        <tbody>
+        <tr th:each = "tempUser : ${usersList}">
+            <td th:text="${tempUser.getId()}"/>
+            <td th:text="${tempUser.getFirstName()}"/>
+            <td th:text="${tempUser.getLastName()}"/>
+            <td th:text="${tempUser.getEmail()}"/>
+            <td th:text="${tempUser.getRoles()}"/>
+            <td th:text="${tempUser.getAge()}"/>
+        </tr>
+        </tbody>
+    </table>
+    <br/><br/>
+    <form action="/admin/delete" method="get">
+        <input type="number" value="ID" name="id"/>
+        <input type="submit" value="Delete"/>
+    </form>
+    <br/><br/>
+    <form action="/admin/update" method="get">
+        <input type="number" value="ID" name="id"/>
+        <input type="text" value="First Name" name="first_name"/>
+        <input type="text" value="Last Name" name="last_name"/>
+        <input type="text" value="Email" name="email"/>
+        <input type="number" value="Age" name="age"/>
+        <input type="checkbox" value="admin" name="admin_check"/>
+        <input type="checkbox" value="user" name="user_check"/>
+        <input type="submit" value="Update"/>
+    </form>
+    <br/><br/>
+    <form action="/admin/add" method="get">
+        <input type="text" value="First Name" name="first_name"/>
+        <input type="text" value="Last Name" name="last_name"/>
+        <input type="text" value="Email" name="email"/>
+        <input type="text" value="Password" name="password"/>
+        <input type="number" value="Age" name="age"/>
+        <input type="checkbox" value="admin" name="admin_check"/>
+        <input type="checkbox" value="user" name="user_check"/>
+        <input type="submit" value="Add"/>
+    </form>
+</div>
+</body>
+</html>

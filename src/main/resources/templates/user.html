@@ -3,9 +3,31 @@
 <head>
     <title>Spring Security Example</title>
 </head>
+
 <body>
+<div th:replace="fragment/logout :: logout"></div>
 <h1>User, welcome spring boot security page!</h1>
 
+<table border="2">
+    <thead>
+    <th>Id</th>
+    <th>First Name</th>
+    <th>Second Name</th>
+    <th>Email </th>
+    <th>Roles </th>
+    <th>Age </th>
+    </thead>
+    <tbody>
+    <tr th:with = "tempUser = ${informationOfUser}">
+        <td th:text="${tempUser.getId()}"/>
+        <td th:text="${tempUser.getFirstName()}"/>
+        <td th:text="${tempUser.getLastName()}"/>
+        <td th:text="${tempUser.getEmail()}"/>
+        <td th:text="${tempUser.getRoles()}"/>
+        <td th:text="${tempUser.getAge()}"/>
 
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
