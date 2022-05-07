@@ -94,6 +94,18 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String stringOfRoles(){
+        if (roles.size() == 0){
+            return "";
+        }
+        if(roles.size() == 2){
+            return "ADMIN, USER";
+        }else if(roles.toArray()[0] == "ROLE_ADMIN"){
+            return "ADMIN";
+        }else {
+            return "USER";
+        }
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

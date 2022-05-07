@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserImplem;
@@ -44,7 +46,7 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/admin/add")
+    @PostMapping (value = "/admin/add")
     public String thirdPage(HttpServletRequest httpServletRequest, ModelMap modelMap){
         User user = createUser(httpServletRequest);
         userImplem.add(user);
@@ -52,7 +54,7 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/admin/update")
+    @PostMapping("/admin/update")
     public String fourthPage(HttpServletRequest httpServletRequest, ModelMap modelMap){
         User user = createUser(httpServletRequest);
         user.setId(Long.valueOf(httpServletRequest.getParameter("id")));
@@ -72,17 +74,15 @@ public class AdminController {
 
     private User createUser(HttpServletRequest httpServletRequest){
         Set<Role> roles = null;
-        if(httpServletRequest.getParameter("admin_check") != null){
-            roles = userImplem.receiveRoles(1);
-        }
-
-        if(httpServletRequest.getParameter("user_check") != null){
-            roles = userImplem.receiveRoles(2);
-        }
-
         if(httpServletRequest.getParameter("user_check") != null &&
                 httpServletRequest.getParameter("admin_check") != null){
             roles = userImplem.receiveRoles(3);
+        }else if(httpServletRequest.getParameter("user_check") != null){
+            roles = userImplem.receiveRoles(2);
+        }else if(httpServletRequest.getParameter("admin_check") != null){
+            roles = userImplem.receiveRoles(1);
+        } else {
+            roles = userImplem.receiveRoles(2);
         }
 
         String password = passwordEncoder.encode(httpServletRequest.getParameter("password"));

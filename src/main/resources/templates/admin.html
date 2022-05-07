@@ -29,36 +29,36 @@
             <td th:text="${tempUser.getFirstName()}"/>
             <td th:text="${tempUser.getLastName()}"/>
             <td th:text="${tempUser.getEmail()}"/>
-            <td th:text="${tempUser.getRoles()}"/>
+            <td th:text="${tempUser.stringOfRoles()}"/>
             <td th:text="${tempUser.getAge()}"/>
         </tr>
         </tbody>
     </table>
     <br/><br/>
     <form action="/admin/delete" method="get">
-        <input type="number" value="ID" name="id"/>
+        <label>Id</label><input type="number" value="ID" name="id" min="1" required/>
         <input type="submit" value="Delete"/>
     </form>
     <br/><br/>
-    <form action="/admin/update" method="get">
-        <input type="number" value="ID" name="id"/>
-        <input type="text" value="First Name" name="first_name"/>
-        <input type="text" value="Last Name" name="last_name"/>
-        <input type="text" value="Email" name="email"/>
-        <input type="number" value="Age" name="age"/>
+    <form action="/admin/update" method="post">
+        <label>Id</label><input type="number" value="ID" name="id" min="1" required/>
+        <input type="text" value="First Name" name="first_name" required/>
+        <input type="text" value="Last Name" name="last_name" required/>
+        <input type="text" value="Email" name="email" required/>
+        <label>Age</label><input type="number" value="Age" name="age" min="0" required/>
         <input type="checkbox" value="admin" name="admin_check"/>
         <input type="checkbox" value="user" name="user_check"/>
         <input type="submit" value="Update"/>
     </form>
     <br/><br/>
-    <form action="/admin/add" method="get">
-        <input type="text" value="First Name" name="first_name"/>
-        <input type="text" value="Last Name" name="last_name"/>
-        <input type="text" value="Email" name="email"/>
-        <input type="text" value="Password" name="password"/>
-        <input type="number" value="Age" name="age"/>
-        <input type="checkbox" value="admin" name="admin_check"/>
-        <input type="checkbox" value="user" name="user_check"/>
+    <form action="/admin/add" method="post">
+        <input type="text" value="First Name" name="first_name" required/>
+        <input type="text" value="Last Name" name="last_name" required/>
+        <input type="text" value="Email" name="email" required/>
+        <input type="text" value="Password" name="password" required/>
+        <label>Age</label><input type="number" value="Age" name="age" min="0" required/>
+        <label>ADMIN</label><input type="checkbox" value="admin" name="admin_check"/>
+        <label>USER</label><input type="checkbox" value="user" name="user_check"/>
         <input type="submit" value="Add"/>
     </form>
 </div>

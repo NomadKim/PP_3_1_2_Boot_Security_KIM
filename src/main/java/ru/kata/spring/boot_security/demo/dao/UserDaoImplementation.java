@@ -20,10 +20,11 @@ public class UserDaoImplementation implements UserDaoInterface {
     @Override
     @Transactional
     public void delete(Long id) {
-
         User user2 = (User)entityManager.createQuery("select users from User users where users.id = '" +
                 id +"'").getResultList().get(0);
-        entityManager.remove(user2);
+        if(user2 != null){
+            entityManager.remove(user2);
+        }
     }
 
     @Override
@@ -64,8 +65,7 @@ public class UserDaoImplementation implements UserDaoInterface {
         Set<Role> returnRoles = new HashSet<>();
         List<Role> listOfRoles1 = entityManager.createQuery("select roles from Role roles").
                 getResultList();
-        ArrayList<Role> listOfRoles = new ArrayList<>();
-        listOfRoles.addAll(listOfRoles1);
+        ArrayList<Role> listOfRoles = new ArrayList<>(listOfRoles1);
         Role admin = null;
         Role user = null;
 
