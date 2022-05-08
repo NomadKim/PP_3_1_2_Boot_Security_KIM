@@ -84,8 +84,10 @@ public class AdminController {
         } else {
             roles = userImplem.receiveRoles(2);
         }
-
-        String password = passwordEncoder.encode(httpServletRequest.getParameter("password"));
+        String password = "";
+        if (httpServletRequest.getParameter("password") != null) {
+            passwordEncoder.encode(httpServletRequest.getParameter("password"));
+        }
         User user = new User(httpServletRequest.getParameter("first_name"),
                 httpServletRequest.getParameter("last_name"),
                 Integer.valueOf(httpServletRequest.getParameter("age")),
