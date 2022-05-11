@@ -7,12 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserImplem;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +35,6 @@ public class AdminController {
     @GetMapping("/admin/delete")
     public String secondPage(HttpServletRequest httpServletRequest, ModelMap modelMap){
         Long id = Long.valueOf(httpServletRequest.getParameter("id"));
-        System.out.println(id);
         try{
             userImplem.delete(id);
         }catch (Exception e){
@@ -73,7 +71,7 @@ public class AdminController {
     }
 
     private User createUser(HttpServletRequest httpServletRequest){
-        Set<Role> roles = null;
+        Set<Role> roles;
         if(httpServletRequest.getParameter("user_check") != null &&
                 httpServletRequest.getParameter("admin_check") != null){
             roles = userImplem.receiveRoles(3);
@@ -94,8 +92,6 @@ public class AdminController {
                 password,
                 roles,
                 httpServletRequest.getParameter("email"));
-        List<User> users = returnList();
-        user.setId(users.get(users.size()-1).getId() + 1);
         return user;
     }
 
@@ -107,7 +103,6 @@ public class AdminController {
 //                "$2a$12$H5J9Tbf5NoBfdeigxP0DHe8Hi/.KP53G/NSpo0ECZqhZnYjOdEbVO",
 //                userImplem.receiveRoles(3),
 //                "admin6");
-//        user.setId(6l);
 //        userImplem.add(user);
 //        return "index";
 //
